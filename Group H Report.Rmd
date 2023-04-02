@@ -12,6 +12,5 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 study1 = read.csv("Study1Data.csv")
 study2 = read.csv("Study2Data.csv")
-3-2
 ```
 
