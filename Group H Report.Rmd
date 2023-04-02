@@ -1,7 +1,7 @@
 ---
-title: "Stat 3302 Paper"
-author: "Nina Wei.1241"
-date: "4/2/2023"
+title: "Stat 3302 Report"
+author: "Group H: Sam Lefebvre.22, Nina Wei.1241, Maggie Miller.10302, Kevin Song.1649"
+date: "4/20/2023"
 output: html_document
 ---
 
