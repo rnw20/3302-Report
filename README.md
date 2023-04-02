@@ -1,8 +1,8 @@
 # 3302-Report
 
-Group H 3302 Report
+## Group H 3302 Report
 
-How to open Git in RStudio:
+### How to open Git in RStudio:
 1. Go to File -> New Project.
 2. Select Version Control.
 3. Select Git.
@@ -11,10 +11,22 @@ How to open Git in RStudio:
 6. Click Create Project.
 7. Go to View -> Show Git to get access to Pull, Commit, and Push commands.
 
-Git tutorial:
-1. **Stage** your changes (click the checkboxes under 'Staged').
-2. **Commit** with a descriptive message.
-3. **Pull** changes from repository.
-4. **Push** your changes.
+### Git tutorial:
+Make sure the .Rmd file can still knit before doing this!
+1. Click Commit.
+2. Click Stage All to stage your changes (make sure the html file is NOT staged if you knitted before committing).
+3. Commit with a descriptive message.
+4. Pull changes from repository.
+5. Push your changes.
 
-**===Always pull before you push!===**
+**Note: Always pull before you push!!!**
+
+### Example process:
+1. Type some functional code (e.g. 3-2) in an R code chunk in Group H Report.Rmd.
+2. Save.
+3. Click Pull.
+4. Click Commit.
+5. Click Stage All (make sure the html file is NOT staged if you knitted before committing).
+6. Write a commit message (e.g. "test commit").
+7. Click Commit.
+8. Click Push.
