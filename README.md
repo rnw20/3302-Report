@@ -12,10 +12,12 @@
 7. Go to View -> Show Git to get access to Pull, Commit, and Push commands.
 
 ### Git tutorial:
-1. **Stage** your changes (click the checkboxes under 'Staged').
-2. **Commit** with a descriptive message.
-3. **Pull** changes from repository.
-4. **Push** your changes.
+Make sure the .Rmd file can still knit before doing this!
+1. Click Commit.
+2. Click Stage All to stage your changes (make sure the html file is NOT staged if you knitted before committing).
+3. Commit with a descriptive message.
+4. Pull changes from repository.
+5. Push your changes.
 
 **Note: Always pull before you push!!!**
 
@@ -23,8 +25,8 @@
 1. Type some functional code (e.g. 3-2) in an R code chunk in Group H Report.Rmd.
 2. Save.
 3. Click Pull.
-4. Stage changes by checking the checkboxes under the 'Staged' column.
-5. Click Commit.
+4. Click Commit.
+5. Click Stage All (make sure the html file is NOT staged if you knitted before committing).
 6. Write a commit message (e.g. "test commit").
 7. Click Commit.
 8. Click Push.
