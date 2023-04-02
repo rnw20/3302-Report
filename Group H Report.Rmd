@@ -1,0 +1,16 @@
+---
+title: "Stat 3302 Paper"
+author: "Nina Wei.1241"
+date: "4/2/2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+study1 = read.csv("Study1Data.csv")
+study2 = read.csv("Study2Data.csv")
+```
+
