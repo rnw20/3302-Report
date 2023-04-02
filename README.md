@@ -20,7 +20,7 @@
 **Note: Always pull before you push!!!**
 
 ### Example process:
-1. Type some code (e.g. 3-2) in an R code chunk in Group H Report.Rmd.
+1. Type some functional code (e.g. 3-2) in an R code chunk in Group H Report.Rmd.
 2. Save.
 3. Click Pull.
 4. Stage changes by checking the checkboxes under the 'Staged' column.
