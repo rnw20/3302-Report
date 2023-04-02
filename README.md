@@ -13,13 +13,14 @@
 
 ### Git tutorial:
 Make sure the .Rmd file can still knit before doing this!
-1. Click Commit.
-2. Click Stage All to stage your changes (make sure the html file is NOT staged if you knitted before committing).
-3. Commit with a descriptive message.
-4. Pull changes from repository.
-5. Push your changes.
+1. Click Pull.
+2. Click Commit.
+3. Click Stage All to stage your changes (make sure the html file is NOT staged if you knitted before committing).
+4. Commit with a descriptive message.
+5. Pull again to be safe.
+6. Push your changes.
 
-**Note: Always pull before you push!!!**
+**Note: Always pull before you push to avoid overwriting other people's changes!!!**
 
 ### Example process:
 1. Type some functional code (e.g. 3-2) in an R code chunk in Group H Report.Rmd.
@@ -29,4 +30,5 @@ Make sure the .Rmd file can still knit before doing this!
 5. Click Stage All (make sure the html file is NOT staged if you knitted before committing).
 6. Write a commit message (e.g. "test commit").
 7. Click Commit.
-8. Click Push.
+8. Click Pull.
+9. Click Push.
