@@ -65,6 +65,8 @@ s2mod2.df = as.data.frame(cbind(b, odds.ratio))
 
 ### Study 1
 
+For Study 1, we were able to reproduce the two binary logistic regression models presented in the table.
+
 #### Model 1
 ```{r}
 summary(s1mod1)
@@ -78,6 +80,8 @@ kable(s1mod2.df)
 ```
 
 ### Study 2
+
+For Study 2, we were able to reproduce the two binary logistic regression models presented in the table. For Model 1, the summary table in the paper displayed the odds ratio of `Trustworthiness` as 0.56 when it was actually 0.21 stated in another paragraph. We obtained an odds ratio of 0.21 for `Trustworthiness` in our reproduction of Model 1.
 
 #### Model 1
 ```{r}
