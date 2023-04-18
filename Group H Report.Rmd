@@ -7,6 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
 ```
 
 ```{r}
@@ -15,5 +16,22 @@ study2 = read.csv("Study2Data.csv")
 ```
 
 ```{r}
-print("Test Committ")
+s1mod1 = glm(sent ~ trust, family=binomial, data=study1)
+summary(s1mod1)
+b = coef(s1mod1)
+names(b) = c("Intercept", "Trustworthiness")
+odds.ratio = exp(b)
+s1mod1.df = as.data.frame(cbind(b, odds.ratio))
+kable(s1mod1.df)
 ```
+
+```{r}
+s1mod2 = glm(sent ~ trust + zAfro + attract + maturity + zfWHR + glasses + tattoos, family=binomial, data=study1)
+summary(s1mod2)
+b = coef(s1mod2)
+names(b) = c("Intercept", "Trustworthiness", "Afrocentricity", "Attractiveness", "Facial maturity", "Facial width-to-height ratio", "Presence of glasses", "Presence of tattoos")
+odds.ratio = exp(b)
+s1mod2.df = as.data.frame(cbind(b, odds.ratio))
+kable(s1mod2.df)
+```
+
