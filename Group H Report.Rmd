@@ -12,7 +12,11 @@ library(knitr)
 
 ## Methods
 
-First, we import the two datasets needed for the two studies.
+
+
+## Results
+
+First, we import the two datasets needed for the two studies. `study1` is the dataset used for Study 1, and `study2` is the dataset used for Study 2.
 ```{r}
 study1 = read.csv("Study1Data.csv")
 study2 = read.csv("Study2Data.csv")
@@ -20,78 +24,52 @@ study2 = read.csv("Study2Data.csv")
 
 ### Study 1
 
-Study 1 has two binary logistic regression models, Model 1 and Model 2.
+Study 1 has two binary logistic regression models, Model 1 and Model 2. We were able to reproduce the Model 1 and Model 2 presented in Table 1 in the paper.
 
 #### Model 1
 ```{r}
 s1mod1 = glm(sent ~ trust, family=binomial, data=study1)
+summary(s1mod1)
 b = coef(s1mod1)
 names(b) = c("Intercept", "Trustworthiness")
 odds.ratio = exp(b)
 s1mod1.df = as.data.frame(cbind(b, odds.ratio))
-```
-
-#### Model 2
-```{r}
-s1mod2 = glm(sent ~ trust + zAfro + attract + maturity + zfWHR + glasses + tattoos, family=binomial, data=study1)
-b = coef(s1mod2)
-names(b) = c("Intercept", "Trustworthiness", "Afrocentricity", "Attractiveness", "Facial maturity", "Facial width-to-height ratio", "Presence of glasses", "Presence of tattoos")
-odds.ratio = exp(b)
-s1mod2.df = as.data.frame(cbind(b, odds.ratio))
-```
-
-### Study 2
-
-Study 2 has two binary logistic regression models, Model 1 and Model 2.
-
-#### Model 1
-```{r}
-s2mod1 = glm(sent ~ trust, family=binomial, data=study2)
-b = coef(s2mod1)
-names(b) = c("Intercept", "Trustworthiness")
-odds.ratio = exp(b)
-s2mod1.df = as.data.frame(cbind(b, odds.ratio))
-```
-
-#### Model 2
-```{r}
-s2mod2 = glm(sent ~ trust + zAfro + attract + maturity + glasses + served, family=binomial, data=study2)
-b = coef(s2mod2)
-names(b) = c("Intercept", "Trustworthiness", "Afrocentricity", "Attractiveness", "Facial maturity", "Presence of glasses", "Time served")
-odds.ratio = exp(b)
-s2mod2.df = as.data.frame(cbind(b, odds.ratio))
-```
-## Results
-
-### Study 1
-
-For Study 1, we were able to reproduce the two binary logistic regression models presented in the table.
-
-#### Model 1
-```{r}
-summary(s1mod1)
 kable(s1mod1.df)
 ```
 
 #### Model 2
 ```{r}
+s1mod2 = glm(sent ~ trust + zAfro + attract + maturity + zfWHR + glasses + tattoos, family=binomial, data=study1)
 summary(s1mod2)
+b = coef(s1mod2)
+names(b) = c("Intercept", "Trustworthiness", "Afrocentricity", "Attractiveness", "Facial maturity", "Facial width-to-height ratio", "Presence of glasses", "Presence of tattoos")
+odds.ratio = exp(b)
+s1mod2.df = as.data.frame(cbind(b, odds.ratio))
 kable(s1mod2.df)
 ```
 
 ### Study 2
 
-For Study 2, we were able to reproduce the two binary logistic regression models presented in the table. For Model 1, the summary table in the paper displayed the odds ratio of `Trustworthiness` as 0.56 when it was actually 0.21 stated in another paragraph. We obtained an odds ratio of 0.21 for `Trustworthiness` in our reproduction of Model 1.
+Study 2 has two binary logistic regression models, Model 1 and Model 2. We were able to reproduce Model 1 and Model 2 presented in Table 2 in the paper. For Model 1, the summary table in the paper displayed the odds ratio of `Trustworthiness` as 0.56 when it was actually 0.21 stated in another paragraph. We obtained an odds ratio of 0.21 for `Trustworthiness` in our reproduction of Model 1.
 
 #### Model 1
 ```{r}
+s2mod1 = glm(sent ~ trust, family=binomial, data=study2)
 summary(s2mod1)
+b = coef(s2mod1)
+names(b) = c("Intercept", "Trustworthiness")
+odds.ratio = exp(b)
+s2mod1.df = as.data.frame(cbind(b, odds.ratio))
 kable(s2mod1.df)
 ```
 
 #### Model 2
 ```{r}
+s2mod2 = glm(sent ~ trust + zAfro + attract + maturity + glasses + served, family=binomial, data=study2)
 summary(s2mod2)
+b = coef(s2mod2)
+names(b) = c("Intercept", "Trustworthiness", "Afrocentricity", "Attractiveness", "Facial maturity", "Presence of glasses", "Time served")
+odds.ratio = exp(b)
+s2mod2.df = as.data.frame(cbind(b, odds.ratio))
 kable(s2mod2.df)
 ```
-
