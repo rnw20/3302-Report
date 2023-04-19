@@ -363,8 +363,312 @@ Miller.10302, Kevin Song.1649</h4>
 </div>
 
 
+<div id="methods" class="section level2">
+<h2>Methods</h2>
+</div>
+<div id="results" class="section level2">
+<h2>Results</h2>
+<p>First, we import the two datasets needed for the two studies.
+<code>study1</code> is the dataset used for Study 1, and
+<code>study2</code> is the dataset used for Study 2.</p>
 <pre class="r"><code>study1 = read.csv(&quot;Study1Data.csv&quot;)
 study2 = read.csv(&quot;Study2Data.csv&quot;)</code></pre>
+<div id="study-1" class="section level3">
+<h3>Study 1</h3>
+<p>Study 1 has two binary logistic regression models, Model 1 and Model
+2. We were able to reproduce the Model 1 and Model 2 presented in Table
+1 in the paper.</p>
+<div id="model-1" class="section level4">
+<h4>Model 1</h4>
+<pre class="r"><code>s1mod1 = glm(sent ~ trust, family=binomial, data=study1)
+summary(s1mod1)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = sent ~ trust, family = binomial, data = study1)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -1.37084  -1.17343   0.06317   1.16488   1.40920  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)   
+## (Intercept)   0.9860     0.3708   2.659  0.00783 **
+## trust        -0.3542     0.1306  -2.712  0.00669 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1028.6  on 741  degrees of freedom
+## Residual deviance: 1021.1  on 740  degrees of freedom
+## AIC: 1025.1
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>b = coef(s1mod1)
+names(b) = c(&quot;Intercept&quot;, &quot;Trustworthiness&quot;)
+odds.ratio = exp(b)
+s1mod1.df = as.data.frame(cbind(b, odds.ratio))
+kable(s1mod1.df)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">b</th>
+<th align="right">odds.ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Intercept</td>
+<td align="right">0.9859922</td>
+<td align="right">2.680470</td>
+</tr>
+<tr class="even">
+<td align="left">Trustworthiness</td>
+<td align="right">-0.3542279</td>
+<td align="right">0.701715</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="model-2" class="section level4">
+<h4>Model 2</h4>
+<pre class="r"><code>s1mod2 = glm(sent ~ trust + zAfro + attract + maturity + zfWHR + glasses + tattoos, family=binomial, data=study1)
+summary(s1mod2)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = sent ~ trust + zAfro + attract + maturity + zfWHR + 
+##     glasses + tattoos, family = binomial, data = study1)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -1.72948  -1.12232   0.02201   1.11995   1.69473  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  2.17865    0.81294   2.680  0.00736 ** 
+## trust       -0.40801    0.14727  -2.770  0.00560 ** 
+## zAfro       -0.23819    0.07993  -2.980  0.00288 ** 
+## attract     -0.16195    0.14203  -1.140  0.25416    
+## maturity    -0.13552    0.08842  -1.533  0.12537    
+## zfWHR        0.32643    0.08384   3.894 9.87e-05 ***
+## glasses      0.44772    0.21875   2.047  0.04068 *  
+## tattoos     -0.54913    0.55832  -0.984  0.32535    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1028.63  on 741  degrees of freedom
+## Residual deviance:  987.05  on 734  degrees of freedom
+## AIC: 1003
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>b = coef(s1mod2)
+names(b) = c(&quot;Intercept&quot;, &quot;Trustworthiness&quot;, &quot;Afrocentricity&quot;, &quot;Attractiveness&quot;, &quot;Facial maturity&quot;, &quot;Facial width-to-height ratio&quot;, &quot;Presence of glasses&quot;, &quot;Presence of tattoos&quot;)
+odds.ratio = exp(b)
+s1mod2.df = as.data.frame(cbind(b, odds.ratio))
+kable(s1mod2.df)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">b</th>
+<th align="right">odds.ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Intercept</td>
+<td align="right">2.1786519</td>
+<td align="right">8.8343889</td>
+</tr>
+<tr class="even">
+<td align="left">Trustworthiness</td>
+<td align="right">-0.4080089</td>
+<td align="right">0.6649730</td>
+</tr>
+<tr class="odd">
+<td align="left">Afrocentricity</td>
+<td align="right">-0.2381915</td>
+<td align="right">0.7880517</td>
+</tr>
+<tr class="even">
+<td align="left">Attractiveness</td>
+<td align="right">-0.1619539</td>
+<td align="right">0.8504804</td>
+</tr>
+<tr class="odd">
+<td align="left">Facial maturity</td>
+<td align="right">-0.1355170</td>
+<td align="right">0.8732644</td>
+</tr>
+<tr class="even">
+<td align="left">Facial width-to-height ratio</td>
+<td align="right">0.3264348</td>
+<td align="right">1.3860179</td>
+</tr>
+<tr class="odd">
+<td align="left">Presence of glasses</td>
+<td align="right">0.4477239</td>
+<td align="right">1.5647467</td>
+</tr>
+<tr class="even">
+<td align="left">Presence of tattoos</td>
+<td align="right">-0.5491270</td>
+<td align="right">0.5774537</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="study-2" class="section level3">
+<h3>Study 2</h3>
+<p>Study 2 has two binary logistic regression models, Model 1 and Model
+2. We were able to reproduce Model 1 and Model 2 presented in Table 2 in
+the paper. For Model 1, the summary table in the paper displayed the
+odds ratio of <code>Trustworthiness</code> as 0.56 when it was actually
+0.21 stated in another paragraph. We obtained an odds ratio of 0.21 for
+<code>Trustworthiness</code> in our reproduction of Model 1.</p>
+<div id="model-1-1" class="section level4">
+<h4>Model 1</h4>
+<pre class="r"><code>s2mod1 = glm(sent ~ trust, family=binomial, data=study2)
+summary(s2mod1)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = sent ~ trust, family = binomial, data = study2)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.2250  -0.8924  -0.6554   0.9818   1.6531  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)   5.9708     2.7069   2.206   0.0274 *
+## trust        -1.5513     0.6775  -2.290   0.0220 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 51.049  on 36  degrees of freedom
+## Residual deviance: 44.556  on 35  degrees of freedom
+## AIC: 48.556
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>b = coef(s2mod1)
+names(b) = c(&quot;Intercept&quot;, &quot;Trustworthiness&quot;)
+odds.ratio = exp(b)
+s2mod1.df = as.data.frame(cbind(b, odds.ratio))
+kable(s2mod1.df)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">b</th>
+<th align="right">odds.ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Intercept</td>
+<td align="right">5.970829</td>
+<td align="right">391.8303467</td>
+</tr>
+<tr class="even">
+<td align="left">Trustworthiness</td>
+<td align="right">-1.551290</td>
+<td align="right">0.2119743</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="model-2-1" class="section level4">
+<h4>Model 2</h4>
+<pre class="r"><code>s2mod2 = glm(sent ~ trust + zAfro + attract + maturity + glasses + served, family=binomial, data=study2)
+summary(s2mod2)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = sent ~ trust + zAfro + attract + maturity + glasses + 
+##     served, family = binomial, data = study2)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.0928  -0.7751  -0.3472   0.8505   1.8089  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)   7.4996     4.5693   1.641   0.1007  
+## trust        -1.4764     0.7826  -1.886   0.0592 .
+## zAfro        -0.5139     0.4123  -1.246   0.2126  
+## attract      -0.3015     0.8584  -0.351   0.7254  
+## maturity      0.1606     0.5304   0.303   0.7620  
+## glasses       1.1375     1.0128   1.123   0.2614  
+## served       -0.1421     0.0777  -1.829   0.0674 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 51.049  on 36  degrees of freedom
+## Residual deviance: 38.517  on 30  degrees of freedom
+## AIC: 52.517
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>b = coef(s2mod2)
+names(b) = c(&quot;Intercept&quot;, &quot;Trustworthiness&quot;, &quot;Afrocentricity&quot;, &quot;Attractiveness&quot;, &quot;Facial maturity&quot;, &quot;Presence of glasses&quot;, &quot;Time served&quot;)
+odds.ratio = exp(b)
+s2mod2.df = as.data.frame(cbind(b, odds.ratio))
+kable(s2mod2.df)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">b</th>
+<th align="right">odds.ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Intercept</td>
+<td align="right">7.4995939</td>
+<td align="right">1807.3083365</td>
+</tr>
+<tr class="even">
+<td align="left">Trustworthiness</td>
+<td align="right">-1.4763530</td>
+<td align="right">0.2284694</td>
+</tr>
+<tr class="odd">
+<td align="left">Afrocentricity</td>
+<td align="right">-0.5138548</td>
+<td align="right">0.5981852</td>
+</tr>
+<tr class="even">
+<td align="left">Attractiveness</td>
+<td align="right">-0.3015445</td>
+<td align="right">0.7396749</td>
+</tr>
+<tr class="odd">
+<td align="left">Facial maturity</td>
+<td align="right">0.1605948</td>
+<td align="right">1.1742091</td>
+</tr>
+<tr class="even">
+<td align="left">Presence of glasses</td>
+<td align="right">1.1374907</td>
+<td align="right">3.1189321</td>
+</tr>
+<tr class="odd">
+<td align="left">Time served</td>
+<td align="right">-0.1421293</td>
+<td align="right">0.8675091</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
 
 
