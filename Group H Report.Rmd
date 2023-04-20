@@ -113,3 +113,47 @@ odds.ratio = exp(b)
 s2mod2.df = as.data.frame(cbind(b, odds.ratio))
 kable(s2mod2.df)
 ```
+
+     
+### Commentary
+
+```{r}
+# Study 1 Plots
+s1mod1.fits <- fitted(s1mod1)
+s1mod1.dev.resids <- resid(s1mod1)
+par(mfrow=c(1,2), cex =0.45, mar = c(4,4,2.3,0.2), bty ="L")
+plot(s1mod1.fits, s1mod1.dev.resids, xlab = " Fitted Values ", ylab = " Deviance Residuals", main =  "Study 1 Model 1")
+abline(h=0, lty=2)
+qqnorm(s1mod1.dev.resids, xlab = "Std, Normal Quantities", ylab = "Deviance Residuals", main = "Study 1 Model 1")
+qqline(s1mod1.dev.resids)
+
+s1mod2.fits <- fitted(s1mod2)
+s1mod2.dev.resids <- resid(s1mod2)
+par(mfrow=c(1,2), cex =0.45, mar = c(4,4,2.3,0.2), bty ="L")
+plot(s1mod2.fits, s1mod2.dev.resids, xlab = " Fitted Values ", ylab = " Deviance Residuals", main =  "Study 1 Model 2")
+abline(h=0, lty=2)
+qqnorm(s1mod2.dev.resids, xlab = "Std, Normal Quantities", ylab = "Deviance Residuals", main = "Study 1 Model 2")
+qqline(s1mod2.dev.resids)
+
+# Study 2 Plots 
+s2mod1.fits <- fitted(s2mod1)
+s2mod1.dev.resids <- resid(s2mod1)
+par(mfrow=c(1,2), cex =0.45, mar = c(4,4,2.3,0.2), bty ="L")
+plot(s2mod1.fits, s2mod1.dev.resids, xlab = " Fitted Values ", ylab = " Deviance Residuals", main =  "Study 2 Model 1")
+abline(h=0, lty=2)
+qqnorm(s2mod1.dev.resids, xlab = "Std, Normal Quantities", ylab = "Deviance Residuals", main = "Study 2 Model 1")
+qqline(s2mod1.dev.resids)
+
+s2mod2.fits <- fitted(s2mod2)
+s2mod2.dev.resids <- resid(s2mod2)
+par(mfrow=c(1,2), cex =0.45, mar = c(2,2,2.3,0.2), bty ="L")
+plot(s2mod2.fits, s2mod2.dev.resids, xlab = " Fitted Values ", ylab = " Deviance Residuals", main =  "Study 2 Model 2")
+abline(h=0, lty=2)
+qqnorm(s2mod2.dev.resids, xlab = "Std, Normal Quantities", ylab = "Deviance Residuals", main = "Study 2 Model 2")
+qqline(s2mod2.dev.resids)
+
+```
+    
+For both studies, a binary logistic model was used. This seemed appropriate since the dependent variable, the sentence outcome, is binary with 0 = life and 1 = death. Our group was able to reproduce almost the exact same results as the study. However, when looking at goodness of fit for the binary logistic regression model it appears the model is not well fitted. When looking at the Deviance vs. Fitted value graphs the data is not randomly scattered around 0, and the deviance residuals do not appear to be normally distributed. This could be due to how it appears that the researchers in the study did not make sure the assumptions of the binary logistic regression model were met before fitting the data. In this study, the probability of getting the life sentence is not constant from inmate to inmate, since that probability depends on the severity of their crime. 
+
+The papers final results for study 1 resulted in a 95% CI odds ratio of [0.54,.91] and I think it should have been mentioned that the confidence interval contained .91 which is pretty close to 1 and indicates there is no relationship between trustworthiness and sentencing results. Not to mention the 2nd study's CI for the odds ratio (.05, 1.06) did contain one indicating trustworthiness did not effect sentencing. Considering this, I do not think concluding that untrustworthy faces are more likely to be sentenced to death was appropriate. 
