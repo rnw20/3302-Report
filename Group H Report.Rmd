@@ -1,14 +1,27 @@
 ---
 title: "Stat 3302 Report"
-author: "Group H: Sam Lefebvre.22, Nina Wei.1241, Maggie Miller.10302, Kevin Song.1649"
+author: 'Group H: Sam Lefebvre.22, Nina Wei.1241, Maggie Miller.10302, Kevin Song.1649'
 date: "4/20/2023"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 ```
+
+## Introduction
+
+In the article Facial Trustworthiness Predicts Extreme Criminal-Sentencing Outcomes by John Paul Wilson and Nicholas O. Rule, an experiment is done to see if people's perception of trustworthiness in criminals could be a good predictor for extreme criminal-sentencing outcomes. In order to make the study valid, they wanted to do this with actual murderers, instead of just running an experiment with perceived guilt. The goal was to see if people giving a trust rating to each of these people was relevant. In the first study, people were shown murderers and asked to rate them on trustworthiness on a scale from 1 to 8. In the second study, the same people were shown people who were exonerated from death row. It was hypothesized that the results would show that these ratings would have a correlation to extreme criminal sentencing outcomes.
+
+In the first study, photos of inmates were collected from the Florida Department Corrections. These are people who were convicted of murder and are now waiting on death row. Females were excluded as well as males who were not black or white, which left them with 371 men. They then selected a control group of similar looking men who had life in prison, resulting in a total of 742 images that were then divided into 7 smaller sets. After, 208 workers from Amazon Mechanical Turk who were all American were then asked to rate these photos on how trustworthy they assumed they were on a scale from 1 to 8 with 1 being not trustworthy and 8 being extremely trustworthy. Other samples were also taken to rate the subjects in the photos based on Afrocentricity, attractiveness and facial maturity. Some other factors that were also taken into account were fWHR (facial width to height ratio), presence of glasses, and presence of tattoos. In the second study, photos were collected from the innocence project of people who have been exonerated from their crimes. From those, 37 men were selected whose crimes would’ve either landed them on death row or life in prison. The same group of workers was then brought in to rate these photos using the same traits as study one, while also factoring in how many years the person spent in prison.
+
+For the results for study 1, all of the ratings were averaged out in order to get a group judgment for each rating for each face. It was found that subjects who were sentenced to death looked less trustworthy than those who were sentenced to life in prison. Black subjects were also rated more trustworthy than white targets, but race and sentence did not interact. A logistic regression model was then built to see the extent that facial trustworthiness would predict the sentencing outcomes as well as with the other traits that were measured. It was determined that targets who were seen as less trustworthy had a higher likelihood to be sentenced to death than people who were seen as more trustworthy. Trustworthiness did seem to be a good predictor, but Afrocentricity, fWHR and glasses were also significant. In the second study, another logistic regression model was built. Again, it was found that trustworthiness did a good job predicting sentencing outcomes. In this model, none of the covariates predicted death sentencing. The final results after both of the studies concluded were that facial appearance really does affect criminal sentencing independent of actual guilt, and also the severity of the sentence. Overall, this points out a problem in the criminal-justice system that they need to be made aware of, or bias on the grounds of facial features will continue to have an impact on sentencing.
+
+The goals of our report are to replicate the data that was produced by the experiment in both study 1 and study 2. Each of these studies has two models within them that account for all of the characteristics that have been previously listed. We will be doing this by creating two binary logistic regression models for each study, and then displaying the data using the summary function. The results of both of the studies that are predicting sentencing outcomes will be shown, which should match those that were given in the article.
+
 
 ## Methods
 
