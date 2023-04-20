@@ -44,7 +44,7 @@ study2 = read.csv("Study2Data.csv")
 
 ### Study 1
 
-Study 1 has two binary logistic regression models, Model 1 and Model 2. We were able to reproduce Model 1 and Model 2 in terms of coefficients and odds ratios as presented in Table 1.
+Study 1 has two binary logistic regression models, Model 1 and Model 2. We were able to reproduce Model 1 and Model 2 in terms of coefficients and odds ratios as presented in Table 1. Table 1 shows the covariates of the model with columns `b` for coefficients with standard errors in parentheses and `Odds ratio` for odds ratios with 95% confidence intervals in square brackets.
 
 ```{r, echo=FALSE}
 knitr::include_graphics("Table1.png")
@@ -58,9 +58,12 @@ The results of Model 1 show that convicted murderers perceived as less trustwort
 s1mod1 = glm(sent ~ trust, family=binomial, data=study1)
 summary(s1mod1)
 b = coef(s1mod1)
+std.err = sqrt(diag(vcov(s1mod1)))
 names(b) = c("Intercept", "Trustworthiness")
 odds.ratio = exp(b)
-s1mod1.df = as.data.frame(cbind(b, odds.ratio))
+lower.bound = exp(b-1.96*std.err)
+upper.bound = exp(b+1.96*std.err)
+s1mod1.df = data.frame(b = sprintf("%.2f (%.2f)", b, std.err), Odds.ratio = sprintf("%.2f [%.2f, %.2f]", odds.ratio, lower.bound, upper.bound), row.names = names(b))
 kable(s1mod1.df)
 ```
 
@@ -72,15 +75,18 @@ The results of Model 2 show that faces perceived as less trustworthy were more l
 s1mod2 = glm(sent ~ trust + zAfro + attract + maturity + zfWHR + glasses + tattoos, family=binomial, data=study1)
 summary(s1mod2)
 b = coef(s1mod2)
+std.err = sqrt(diag(vcov(s1mod2)))
 names(b) = c("Intercept", "Trustworthiness", "Afrocentricity", "Attractiveness", "Facial maturity", "Facial width-to-height ratio", "Presence of glasses", "Presence of tattoos")
 odds.ratio = exp(b)
-s1mod2.df = as.data.frame(cbind(b, odds.ratio))
+lower.bound = exp(b-1.96*std.err)
+upper.bound = exp(b+1.96*std.err)
+s1mod2.df = data.frame(b = sprintf("%.2f (%.2f)", b, std.err), Odds.ratio = sprintf("%.2f [%.2f, %.2f]", odds.ratio, lower.bound, upper.bound), row.names = names(b))
 kable(s1mod2.df)
 ```
 
 ### Study 2
 
-Study 2 has two binary logistic regression models, Model 1 and Model 2. We were able to reproduce Model 1 and Model 2 in terms of coefficients and odds ratios as presented in Table 2. For Model 1, the summary table in the paper displayed the odds ratio of `Trustworthiness` as 0.56, which seems to be a typo, when it was actually 0.21 as stated in the preceding paragraph. We, however, did obtain an odds ratio of 0.21 for `Trustworthiness` in our reproduction of Model 1.
+Study 2 has two binary logistic regression models, Model 1 and Model 2. We were able to reproduce Model 1 and Model 2 in terms of coefficients and odds ratios as presented in Table 2. Table 2 shows the covariates of the model with columns `b` for coefficients with standard errors in parentheses and `Odds ratio` for odds ratios with 95% confidence intervals in square brackets. For Model 1, Table 2 displayed the odds ratio of `Trustworthiness` as 0.56, which seems to be a typo, when it was actually 0.21 as stated in a preceding paragraph in the article. We, however, did obtain an odds ratio of 0.21 for `Trustworthiness` in our reproduction of Model 1. For Model 2, Table 2 displayed the odds ratio of `Intercept` as 1780.52, but we obtained an odds ratio of 1807.31. We do not think this is an error in reproduction of the model as all the other numbers in the reproduced table matched Table 2.
 
 ```{r, echo=FALSE}
 knitr::include_graphics("Table2.png")
@@ -94,9 +100,12 @@ The results of Model 1 show that faces perceived as less trustworthy were more l
 s2mod1 = glm(sent ~ trust, family=binomial, data=study2)
 summary(s2mod1)
 b = coef(s2mod1)
+std.err = sqrt(diag(vcov(s2mod1)))
 names(b) = c("Intercept", "Trustworthiness")
 odds.ratio = exp(b)
-s2mod1.df = as.data.frame(cbind(b, odds.ratio))
+lower.bound = exp(b-1.96*std.err)
+upper.bound = exp(b+1.96*std.err)
+s2mod1.df = data.frame(b = sprintf("%.2f (%.2f)", b, std.err), Odds.ratio = sprintf("%.2f [%.2f, %.2f]", odds.ratio, lower.bound, upper.bound), row.names = names(b))
 kable(s2mod1.df)
 ```
 
@@ -108,8 +117,11 @@ In Model 2, adding the additional covariates did not improve the previous model 
 s2mod2 = glm(sent ~ trust + zAfro + attract + maturity + glasses + served, family=binomial, data=study2)
 summary(s2mod2)
 b = coef(s2mod2)
+std.err = sqrt(diag(vcov(s2mod2)))
 names(b) = c("Intercept", "Trustworthiness", "Afrocentricity", "Attractiveness", "Facial maturity", "Presence of glasses", "Time served")
 odds.ratio = exp(b)
-s2mod2.df = as.data.frame(cbind(b, odds.ratio))
+lower.bound = exp(b-1.96*std.err)
+upper.bound = exp(b+1.96*std.err)
+s2mod2.df = data.frame(b = sprintf("%.2f (%.2f)", b, std.err), Odds.ratio = sprintf("%.2f [%.2f, %.2f]", odds.ratio, lower.bound, upper.bound), row.names = names(b))
 kable(s2mod2.df)
 ```
