@@ -18,10 +18,11 @@ There was one primary methodology to analyze the relationship between facial tru
 
 In Study 1, the facial trustworthiness of every death-row inmate in Florida was analyzed in order to investigate the relationship between facial trustworthiness and sentencing among real criminals serving life sentences or awaiting execution. Stimulus selection was utilized as 376 white and black males were selected, excluding female inmates and inmates of other races. This was done in order to keep sex and race uniform. A control group of inmates sentenced to life imprisonment was selected to compare against death row inmates.
 
-Next, in order to collect data on the facial traits of the inmates, defendants were divided into seven sets, each set containing equal life sentences and death row sentences, as well as racial splits. They obtained trustworthiness ratings by asking 208 American workers from Amazon Mechanical Turk to rate their trustworthiness from 1 to 8. Ratings of other facial traits were collected, indluding Afrocentricity, attractiveness, facial maturity, glasses, and tattoos. These trustworthiness ratings were compared to a fWHR rating (aggression rating) using ImageJ, and there was a small negative correlation between them, suggesting an independent relationship.
+Next, in order to collect data on the facial traits of the inmates, defendants were divided into seven sets, each set containing equal life sentences and death row sentences, as well as racial splits. They obtained trustworthiness ratings by asking 208 American workers from Amazon Mechanical Turk to rate their trustworthiness from 1 to 8. Ratings of other facial traits were collected, indluding Afrocentricity, attractiveness, facial maturity, glasses, and tattoos. These trustworthiness ratings were compared to a facial width-to-height ratio (fWHR) rating (aggression rating) using ImageJ, and there was a small negative correlation between them, suggesting an independent relationship.
 
-A logistic regression model was used in order to determine the relationship of facial trustworthiness and predicted sentencing outcomes. The sentence outcome (0 = life, 1 = death) was regressed onto trustworthiness of a binary logistic regression model, as well as the covariates (Afrocentricity, attractiveness, facial maturity, fWHR, glasses, tattoos).
+Two logistic regression models were used in order to determine the relationship of facial trustworthiness and predicted sentencing outcomes. The first regressed sentence outcome (0 = life, 1 = death) onto trustworthiness. The second added more covariates in addition to trustworthiness. The covariates were Afrocentricity, attractiveness, facial maturity, fWHR, presence of glasses, and presence of tattoos.
 
+To reproduce the two models, we will use the `glm()` R function with the `family=binomial` parameter to create binary logistic regression models that regress sentence outcome onto the corresponding covariates for each model.
 
 ### Study 2
 
@@ -29,7 +30,9 @@ Study 2 tested the relationship between perceived trustworthiness and criminal s
 
 American workers from the Amazon Mechanical Turk were again asked to rate each of the 37 people for trustworthiness, Afrocentricity, attractiveness, and facial maturity. These were the same scales as Study 1. Presence of glasses and tattoos were coded for but fWHR (aggression) was unable to be recorded because targets were not uniformly facing the camera.
 
-A logistic regression model was used in order to determine if facial trustworthiness predicted sentencing outcomes for innocent individuals. The sentence outcome (0 = life, 1 = death) was regressed on trust-worthiness of a binary logistic regression model. The outcomes covaried Afrocentricity, attractiveness, facial maturity, the presence of glasses, and the number of years each person served in prison.
+Two logistic regression models were used in order to determine if facial trustworthiness predicted sentencing outcomes for innocent individuals. The first regressed sentence outcome (0 = life, 1 = death) onto trustworthiness. The second added more covariates in addition to trustworthiness. The covariates were Afrocentricity, attractiveness, facial maturity, the presence of glasses, and the number of years each person served in prison.
+
+To reproduce the two models, we will use the `glm()` R function with the `family=binomial` parameter to create binary logistic regression models that regress sentence outcome onto the corresponding covariates for each model.
 
 ## Results
 
@@ -41,9 +44,16 @@ study2 = read.csv("Study2Data.csv")
 
 ### Study 1
 
-Study 1 has two binary logistic regression models, Model 1 and Model 2. We were able to reproduce the Model 1 and Model 2 presented in Table 1 in the paper.
+Study 1 has two binary logistic regression models, Model 1 and Model 2. We were able to reproduce Model 1 and Model 2 in terms of coefficients and odds ratios as presented in Table 1.
+
+```{r, echo=FALSE}
+knitr::include_graphics("Table1.png")
+```
 
 #### Model 1
+
+The results of Model 1 show that convicted murderers perceived as less trustworthy were more likely to be sentenced to death since the coefficient of `Trustworthiness` is negative.
+
 ```{r}
 s1mod1 = glm(sent ~ trust, family=binomial, data=study1)
 summary(s1mod1)
@@ -55,6 +65,9 @@ kable(s1mod1.df)
 ```
 
 #### Model 2
+
+The results of Model 2 show that faces perceived as less trustworthy were more likely to be sentenced to death since the coefficient of `Trustworthiness` is negative. Afrocentricity was negatively associated with the death sentence, and fWHR and the presence of glasses were positively associated with the death sentence.
+
 ```{r}
 s1mod2 = glm(sent ~ trust + zAfro + attract + maturity + zfWHR + glasses + tattoos, family=binomial, data=study1)
 summary(s1mod2)
@@ -67,9 +80,16 @@ kable(s1mod2.df)
 
 ### Study 2
 
-Study 2 has two binary logistic regression models, Model 1 and Model 2. We were able to reproduce Model 1 and Model 2 presented in Table 2 in the paper. For Model 1, the summary table in the paper displayed the odds ratio of `Trustworthiness` as 0.56 when it was actually 0.21 stated in another paragraph. We obtained an odds ratio of 0.21 for `Trustworthiness` in our reproduction of Model 1.
+Study 2 has two binary logistic regression models, Model 1 and Model 2. We were able to reproduce Model 1 and Model 2 in terms of coefficients and odds ratios as presented in Table 2. For Model 1, the summary table in the paper displayed the odds ratio of `Trustworthiness` as 0.56, which seems to be a typo, when it was actually 0.21 as stated in the preceding paragraph. We, however, did obtain an odds ratio of 0.21 for `Trustworthiness` in our reproduction of Model 1.
+
+```{r, echo=FALSE}
+knitr::include_graphics("Table2.png")
+```
 
 #### Model 1
+
+The results of Model 1 show that faces perceived as less trustworthy were more likely to be sentenced to death since the coefficient of `Trustworthiness` is negative.
+
 ```{r}
 s2mod1 = glm(sent ~ trust, family=binomial, data=study2)
 summary(s2mod1)
@@ -81,6 +101,9 @@ kable(s2mod1.df)
 ```
 
 #### Model 2
+
+In Model 2, adding the additional covariates did not improve the previous model (Model 1), and none of the covariates predicted the death sentence. However, `Trustworthiness` still remained the predictor that had an continuous effect on the death sentence.
+
 ```{r}
 s2mod2 = glm(sent ~ trust + zAfro + attract + maturity + glasses + served, family=binomial, data=study2)
 summary(s2mod2)
